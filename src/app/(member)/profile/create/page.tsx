@@ -1,39 +1,46 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { createClient } from "@/utils/supabase/client";
+import { useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { addProfile } from './actions';
+import Chip from '@/components/html/Chip';
 
 export default function Profile() {
-  const supabase = createClient();
-  const [selectedJob, setSelectedJob] = useState<string>("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [selectedJob, setSelectedJob] = useState<string>('');
   const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
   const [selectedIntros, setSelectedIntros] = useState<string[]>([]);
+  const [selectedStudySpan, setSelectedStudySpan] = useState<string>('');
 
-  const jobs = ["개발자", "디자이너", "기획자"];
+  const steps = ['job', 'goal', 'introduction', 'studySpan'];
+
+  const jobs = ['개발자', '디자이너', '기획자'];
   const goals = [
-    "자기 개발",
-    "툴 능력 향상",
-    "해당 분야의 네트워킹 확장",
-    "취미",
+    '자기 개발',
+    '툴 능력 향상',
+    '해당 분야의 네트워킹 확장',
+    '취미',
   ];
   const introductions = [
-    "주도적인",
-    "열정적인",
-    "손이 빠른",
-    "시간을 지키는",
-    "꼼꼼한",
-    "모험적인",
-    "신중한",
-    "커뮤니케이션에 능숙한",
-    "논리적인",
-    "파워 J",
-    "분석적인",
-    "동기부여가 필요한",
-    "완벽주의",
+    '주도적인',
+    '열정적인',
+    '손이 빠른',
+    '시간을 지키는',
+    '꼼꼼한',
+    '모험적인',
+    '신중한',
+    '커뮤니케이션에 능숙한',
+    '논리적인',
+    '파워 J',
+    '분석적인',
+    '동기부여가 필요한',
+    '완벽주의',
   ];
+  const studySpans = ['1개월 이내', '1개월~3개월', '3개월~6개월', '6개월 이상'];
 
   const handleJobClick = (job: string) => {
-    setSelectedJob((prev) => (prev === job ? "" : job));
+    setSelectedJob((prev) => (prev === job ? '' : job));
   };
 
   const handleGoalClick = (goal: string) => {
@@ -52,89 +59,134 @@ export default function Profile() {
     );
   };
 
-  const handleNextClick = () => {
+  const handleStudySpanClick = (studySpan: string) => {
+    setSelectedStudySpan((prev) => (prev === studySpan ? '' : studySpan));
+  };
+
+  const handleNextClick = async () => {
+    const currentStepIndex = steps.indexOf(searchParams.get('step') as string);
+
     if (!selectedJob) {
-      alert("직업은 필수 선택입니다");
+      alert('직업은 필수 선택입니다');
+      return;
+    }
+
+    if (currentStepIndex === -1) return;
+
+    const nextStep = steps[currentStepIndex + 1];
+    if (nextStep) {
+      router.push(`/profile/create?step=${nextStep}`);
+    } else {
+      await addProfile(
+        selectedJob,
+        selectedGoals,
+        selectedIntros,
+        selectedStudySpan,
+        router,
+      );
     }
   };
 
-  const addProfile = async () => {
-    try {
-      const { data, error } = await supabase.from("profile").insert({
-        job: selectedJob,
-        goal: selectedGoals,
-        introduction: selectedIntros,
-      });
+  const handlePreviousClick = () => {
+    const currentStepIndex = steps.indexOf(searchParams.get('step') as string);
 
-      if (data) {
-        console.log("Profile added:", data);
-      }
-
-      if (error) throw error;
-    } catch (error) {
-      console.error("Error adding profile:", error);
-      alert("프로필을 추가하는 중 오류가 발생했습니다.");
+    if (currentStepIndex > 0) {
+      const previousStep = steps[currentStepIndex - 1];
+      router.push(`/profile/create?step=${previousStep}`);
     }
   };
+
+  const handleSkipClick = async () => {
+    if (searchParams.get('step') !== 'job') {
+      await addProfile(
+        selectedJob,
+        selectedGoals,
+        selectedIntros,
+        selectedStudySpan,
+        router,
+      );
+
+      router.push('/profile/success');
+    }
+  };
+
+  useEffect(() => {
+    if (!searchParams.get('step')) {
+      router.push('/profile/create?step=job');
+    }
+  }, [searchParams, router]);
 
   return (
     <>
       <h1>Profile</h1>
-      <div id="jobs">
-        <h2>직업 선택</h2>
-        {jobs.map((job) => (
-          <div
-            key={job}
-            onClick={() => handleJobClick(job)}
-            className={`cursor-pointer rounded-lg py-[10.5px] text-center transition duration-300 ${
-              selectedJob === job
-                ? "border border-[#6224FD] bg-[#EFE9FF]"
-                : "border border-[#D9D9D9] bg-[#FFFFFF]"
-            } inline-flex h-10 items-center justify-center pl-[40px] pr-[12px]`}
-          >
-            {job}
-          </div>
-        ))}
-      </div>
-      <button onClick={handleNextClick}>다음</button>
+      {searchParams.get('step') !== 'job' && (
+        <button onClick={handleSkipClick}>skip</button>
+      )}
 
-      <div id="goals">
-        <h2>목표 선택</h2>
-        {goals.map((goal) => (
-          <div
-            key={goal}
-            onClick={() => handleGoalClick(goal)}
-            className={`cursor-pointer rounded-lg py-1.5 text-center transition duration-300 ${
-              selectedGoals.includes(goal)
-                ? "border border-[#6224FD] bg-[#EFE9FF]"
-                : "border border-[#D9D9D9] bg-[#FFFFFF]"
-            } inline-flex items-center justify-center px-3`}
-          >
-            {goal}
-          </div>
-        ))}
-      </div>
-      <button>다음</button>
+      {searchParams.get('step') === 'job' && (
+        <div id="jobs">
+          <h2>직업 선택</h2>
+          {jobs.map((job) => (
+            <Chip
+              key={job}
+              label={job}
+              selected={selectedJob === job}
+              onClick={() => handleJobClick(job)}
+            />
+          ))}
+        </div>
+      )}
 
-      <div id="introduction">
-        <h2>소개 선택</h2>
-        {introductions.map((introduction) => (
-          <div
-            key={introduction}
-            onClick={() => handleIntroClick(introduction)}
-            className={`cursor-pointer rounded-lg py-1.5 text-center transition duration-300 ${
-              selectedIntros.includes(introduction)
-                ? "border border-[#6224FD] bg-[#EFE9FF]"
-                : "border border-[#D9D9D9] bg-[#FFFFFF]"
-            } inline-flex items-center justify-center px-3`}
-          >
-            {introduction}
-          </div>
-        ))}
-      </div>
+      {searchParams.get('step') === 'goal' && (
+        <div id="goals">
+          <h2>목표 선택</h2>
+          {goals.map((goal) => (
+            <Chip
+              key={goal}
+              label={goal}
+              selected={selectedGoals.includes(goal)}
+              onClick={() => handleGoalClick(goal)}
+            />
+          ))}
+        </div>
+      )}
 
-      <button onClick={addProfile} className="submit-btn">
-        프로필 추가
+      {searchParams.get('step') === 'introduction' && (
+        <div id="introduction">
+          <h2>소개 선택</h2>
+          {introductions.map((introduction) => (
+            <Chip
+              key={introduction}
+              label={introduction}
+              selected={selectedIntros.includes(introduction)}
+              onClick={() => handleIntroClick(introduction)}
+            />
+          ))}
+        </div>
+      )}
+
+      {searchParams.get('step') === 'studySpan' && (
+        <div id="studySpans">
+          <h2>스터디 기간 선택</h2>
+          {studySpans.map((studySpan) => (
+            <Chip
+              key={studySpan}
+              label={studySpan}
+              selected={selectedStudySpan === studySpan}
+              onClick={() => handleStudySpanClick(studySpan)}
+            />
+          ))}
+        </div>
+      )}
+
+      <button
+        onClick={handlePreviousClick}
+        disabled={searchParams.get('step') === 'job'}
+      >
+        이전
+      </button>
+      <button onClick={handleNextClick}>
+        {searchParams.get('step') === 'studySpan' ? '프로필 추가' : '다음'}
       </button>
     </>
   );
