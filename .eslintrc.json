@@ -9,13 +9,7 @@
     "node": true,
     "es6": true
   },
-  "plugins": [
-    "simple-import-sort",
-    "import",
-    "@typescript-eslint",
-    "react",
-    "prettier"
-  ],
+  "plugins": ["import", "@typescript-eslint", "react", "prettier"],
   "extends": [
     "airbnb",
     "airbnb-typescript",
@@ -30,39 +24,9 @@
   "rules": {
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".ts", ".tsx"] }],
-    "react/jsx-props-no-spreading": "off",
     "@typescript-eslint/camelcase": "off",
-    "react/require-default-props": "off",
-    "import/no-extraneous-dependencies": "off",
-    "import/prefer-default-export": "off",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "": "never",
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "no-console": "error",
-    "simple-import-sort/exports": "error",
-    "simple-import-sort/imports": [
-      "error",
-      {
-        "groups": [
-          ["^react"], // react 관련 모듈
-          ["^next"], // next 관련 모듈
-          ["^\\w", "^@\\w"], // 기타 서드파티 모듈 (THIRD_PARTY_MODULES)
-          ["^~/api/(.*)$"], // ~/api/ 경로의 모듈
-          ["^~/hooks/(.*)$"], // ~/hooks/ 경로의 모듈
-          ["^~/components/(.*)$"], // ~/components/ 경로의 모듈
-          ["^~/utils/(.*)$"], // ~/utils/ 경로의 모듈
-          ["^[./]"]
-        ]
-      }
-    ]
+    "import/extensions": ["error", "ignorePackages"],
+    "no-console": "error"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -73,5 +37,5 @@
     },
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["node_modules/", "next.config.mjs", "stories"]
+  "ignorePatterns": ["build", "dist", "public"]
 }
