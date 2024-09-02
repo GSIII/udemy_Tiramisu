@@ -2,7 +2,9 @@
 
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+
 import { useRouter } from 'next/navigation';
+
 import { postLogin } from '@/apis/auth';
 import Button from '@/components/common/Button';
 import ErrorMessage from '@/components/form/ErrorMessage';
@@ -40,6 +42,7 @@ export default function LoginForm() {
   return (
     <form
       className="flex flex-col gap-3 px-4"
+      onSubmit={handleSubmit(onSubmit)}
     >
       <div>
         <Input<LoginFormData>
@@ -74,7 +77,7 @@ export default function LoginForm() {
         )}
       </div>
       <div className="mt-5 flex justify-center">
-        <Button label="로그인" type="primary" size="large" onClick={() => handleSubmit(onSubmit)()}/>
+        <Button label="로그인" type="primary" size="large" />
       </div>
     </form>
   );

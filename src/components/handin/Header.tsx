@@ -1,22 +1,23 @@
-import BackArrowIcon from '../icons/BackArrowIcon';
-import CalendarIcon from '../icons/CalendarIcon';
+import LeftArrowIcon from '../icons/LeftArrowIcon'
 
 type HeaderType = {
-  label?: string;
-  rightIcon?: string;
+    label?: string,
+    rightIcon?: string,
 }
 
-function Header({ label, rightIcon }: HeaderType) {
+const Header = ({label, rightIcon}: HeaderType) => {
+    const handleClick = () => {
+        history.back();
+    }
+
   return (
-    <div className='border-b border-[#E6E6E6] flex items-center justify-between px-[16px]'>
-      <span className='hover:cursor-pointer' onClick={() => window.history.back()}>
-        <BackArrowIcon />
-      </span>
-      <span className='text-lg font-bold'>{label}</span>
-      <span className='hover:cursor-pointer'>
-        <CalendarIcon />
-      </span>
+    <div className='flex justify-between py-[40px]'>
+        <span onClick={handleClick} className='hover:cursor-pointer'>
+            <LeftArrowIcon className='w-5 h-5'/>
+        </span>
+        <span>{label}</span>
+        <span>{rightIcon ? rightIcon : ''}</span>
     </div>
-  );
+  )
 }
-export default Header;
+export default Header

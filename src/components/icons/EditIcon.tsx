@@ -1,6 +1,6 @@
-import IconStyle from '../../types/icon';
+import iconStyle from './iconStyle';
 
-function EditIcon(props: IconStyle) {
+const EditIcon = (props: iconStyle) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" {...props}>
       <path
@@ -9,6 +9,6 @@ function EditIcon(props: IconStyle) {
       />
     </svg>
   );
-}
+};
 
 export default EditIcon;

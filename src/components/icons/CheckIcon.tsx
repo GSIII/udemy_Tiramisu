@@ -1,4 +1,4 @@
-import iconStyle from '../../types/icon';
+import iconStyle from './iconStyle';
 const CheckIcon = (props : iconStyle) => {
   return (
     <svg

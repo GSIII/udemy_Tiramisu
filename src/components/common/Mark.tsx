@@ -1,9 +1,9 @@
-export default function Mark({ label }: {label: string}) {
+const Mark = () => {
   return (
-    <div className="flex h-[20px] items-center rounded-2xl border-2 border-main-purple flex-shrink-0">
-      <span className="px-[3px] py-[6px] text-xs font-semibold text-main-purple">
-        {label}
-      </span>
-    </div>
+    <span
+      className="flex h-[20px] w-fit flex-col items-center justify-center rounded-2xl border-2 border-sub-purple px-[6px] py-[3px] text-center text-xs text-sub-purple">
+      진행중
+    </span>
   );
 };
+export default Mark;

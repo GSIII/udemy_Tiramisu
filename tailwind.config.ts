@@ -1,5 +1,5 @@
-import type { Config } from 'tailwindcss';
 import { nextui } from '@nextui-org/react';
+import type { Config } from 'tailwindcss';
 
 const config: Config = {
   content: [
@@ -13,8 +13,9 @@ const config: Config = {
   theme: {
     extend: {
       backgroundImage: {
-        'gradient-custom':
-          'linear-gradient(191deg, #E4E4FF -7.98%, #FFF 44.59%)',
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':
+          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
       colors: {
         'main-purple': '#6224FD',
@@ -31,22 +32,6 @@ const config: Config = {
         medium: '500',
         semibold: '600',
         bold: '700',
-      },
-      keyframes: {
-        rocketMove: {
-          '0%': { transform: 'translate(-65%, -60%)' },
-          '50%': { transform: 'translate(-100%, -100%)' },
-          '100%': { transform: 'translate(-65%, -60%)' },
-        },
-        messageMove: {
-          '0%': { transform: 'translateY(0%)' },
-          '50%': { transform: 'translateY(-15%)' },
-          '100%': { transform: 'translateY(0%)' },
-        },
-      },
-      animation: {
-        rocketMove: 'rocketMove 3.5s linear infinite',
-        messageMove: 'messageMove 2s linear infinite',
       },
     },
   },
