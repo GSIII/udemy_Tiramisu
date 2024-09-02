@@ -1,3 +1,6 @@
+import React from 'react';
+import { Progress } from '@nextui-org/react';
+
 type TProgressBarProps = {
   currentStepIndex: number;
   totalSteps: number;
@@ -7,14 +10,16 @@ const ProgressBar: React.FC<TProgressBarProps> = ({
   currentStepIndex,
   totalSteps,
 }) => {
-  const progressPercentage = ((currentStepIndex + 1) / totalSteps) * 100;
+  const progressValue = ((currentStepIndex + 1) / totalSteps) * 100;
+
   return (
-    <div className="h-2 w-full rounded-full bg-middle-gray">
-      <div
-        className="h-2 rounded-full bg-main-purple"
-        style={{ width: `${progressPercentage}%` }}
-      ></div>
-    </div>
+    <Progress
+      aria-label="Loading..."
+      size="sm"
+      value={progressValue}
+      color="success"
+      className="mb-8 max-w-full [&>*>*]:!rounded-none [&>*>*]:bg-main-purple [&>*]:!rounded-none"
+    />
   );
 };
 

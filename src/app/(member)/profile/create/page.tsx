@@ -14,6 +14,7 @@ export default function Profile() {
   const router = useRouter();
   const [step, setStep] = useState<string>(steps[0]);
   const [nickname, setNickname] = useState<string>('');
+  const [imageId, setImageId] = useState<number | null>(null); // 상태로 관리
   const [introduction, setIntroduction] = useState<string>('');
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [selectedJob, setSelectedJob] = useState<string>('');
@@ -61,12 +62,16 @@ export default function Profile() {
 
   const handleNextClick = async () => {
     if (step === 'initial') {
+      let imageId: number | null = null;
       if (imageFile) {
         // 이미지 업로드 및 URL 저장
         const imageUrl = await uploadImage(imageFile);
         if (!imageUrl) return;
 
-        await saveImageUrl(imageUrl);
+        const id = await saveImageUrl(imageUrl);
+        if (id === null) return;
+
+        setImageId(id);
       }
 
       setStep('job');
@@ -77,20 +82,22 @@ export default function Profile() {
       }
 
       const currentStepIndex = steps.indexOf(step);
-      uploadImage;
       const nextStep = steps[currentStepIndex + 1];
 
       if (nextStep) {
         setStep(nextStep);
       } else {
-        await addProfile({
-          nickname,
-          introduction,
-          job: selectedJob,
-          purposes: selectedPurposes,
-          personalities: selectedPersonalities,
-          studySpan: selectedStudySpan,
-        });
+        await addProfile(
+          {
+            nickname,
+            introduction,
+            job: selectedJob,
+            purposes: selectedPurposes,
+            personalities: selectedPersonalities,
+            studySpan: selectedStudySpan,
+          },
+          imageId,
+        );
         router.push('/profile/success');
       }
     } else {
@@ -100,14 +107,17 @@ export default function Profile() {
       if (nextStep) {
         setStep(nextStep);
       } else {
-        await addProfile({
-          nickname,
-          introduction,
-          job: selectedJob,
-          purposes: selectedPurposes,
-          personalities: selectedPersonalities,
-          studySpan: selectedStudySpan,
-        });
+        await addProfile(
+          {
+            nickname,
+            introduction,
+            job: selectedJob,
+            purposes: selectedPurposes,
+            personalities: selectedPersonalities,
+            studySpan: selectedStudySpan,
+          },
+          imageId,
+        );
         router.push('/profile/success');
       }
     }
@@ -124,14 +134,17 @@ export default function Profile() {
 
   const handleSkipClick = async () => {
     if (step !== 'job') {
-      await addProfile({
-        nickname,
-        introduction,
-        job: selectedJob,
-        purposes: selectedPurposes,
-        personalities: selectedPersonalities,
-        studySpan: selectedStudySpan,
-      });
+      await addProfile(
+        {
+          nickname,
+          introduction,
+          job: selectedJob,
+          purposes: selectedPurposes,
+          personalities: selectedPersonalities,
+          studySpan: selectedStudySpan,
+        },
+        imageId,
+      );
 
       router.push('/profile/success');
     }
