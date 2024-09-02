@@ -1,34 +1,36 @@
-'use client';
-
-import iconStyle from './iconStyle';
-
-const CalendarIcon = (props: iconStyle) => {
+export default function CalendarIcon() {
   return (
     <svg
-      viewBox="0 0 24 24"
+      width="40"
+      height="40"
+      viewBox="0 0 40 40"
+      fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      {...props}
     >
       <path
-        d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z"
+        d="M27 12H13C11.8954 12 11 12.8954 11 14V28C11 29.1046 11.8954 30 13 30H27C28.1046 30 29 29.1046 29 28V14C29 12.8954 28.1046 12 27 12Z"
+        stroke="#555555"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M16 2V6"
+        d="M24 10V14"
+        stroke="#555555"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M8 2V6"
+        d="M16 10V14"
+        stroke="#555555"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M3 10H21"
+        d="M11 18H29"
+        stroke="#555555"
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -36,4 +38,3 @@ const CalendarIcon = (props: iconStyle) => {
     </svg>
   );
 }
-export default CalendarIcon;

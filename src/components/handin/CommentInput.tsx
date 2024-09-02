@@ -1,28 +1,16 @@
-'use client';
-import { useState } from 'react';
-import ProfileImg from '../common/ProfileImg'
-import SendIcon from '../icons/SendIcon'
+type CommnetInputProps = {
+  preValue?: string;
+};
 
-const CommentInput = ({prefill, onInsert}: {prefill?: string, onInsert: Function}) => {
-  const [comment, setComment] = useState(prefill);
+function CommentInput({ preValue }: CommnetInputProps) {
   return (
-    <div className='flex bg-white justify-center items-center px-[10px] py-[20px]'>
-    {/* <div className='w-[50px] mr-[10px]'>
-      <ProfileImg img='./' />
-    </div> */}
-    <div className='flex-grow-[2] relative'>
-      <input 
-        type='text' 
-        placeholder='스터디원에게 응원의 메세지 보내기' 
-        className='border-2 border-light-gray rounded-lg w-full bg-[#F3F3F3] p-[10px]'
-        value={comment ? comment : ''}
-        onChange={(e) => setComment(e.target.value)}
-      />
-      <button className='absolute top-1 bottom-1 right-2' onClick={() => onInsert(comment)}>
-        <SendIcon />
-      </button>
-    </div>
-  </div>
-  )
+    <input
+      defaultValue={preValue}
+      required
+      type="text"
+      name="comment"
+      placeholder="스터디원에게 응원의 메세지 보내기"
+      className={`w-full rounded-lg bg-[#f3f3f3] py-[11.5px] border border-[#E9E9E9] text-sm placeholder-gray-purple focus:outline-none ${preValue ? 'px-[14px] pb-[23px]' : 'pl-[14px] pr-[46px]'}`}
+    />
+  );
 }
-export default CommentInput
