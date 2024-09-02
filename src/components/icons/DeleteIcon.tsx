@@ -1,4 +1,4 @@
-import iconStyle from './iconStyle';
+import iconStyle from '../../types/icon';
 
 const DeleteIcon = (props: iconStyle) => {
   return (

@@ -20,7 +20,7 @@ function SocialButtons() {
   };
 
   return (
-    <div className="flex justify-center gap-6">
+    <>
       {SOCIAL_ICONS.map((social) => (
         <button
           className={`flex h-11 w-11 items-center justify-center rounded shadow ${bgColor[social.name]}`}
@@ -32,7 +32,7 @@ function SocialButtons() {
           <social.icon />
         </button>
       ))}
-    </div>
+    </>
   );
 }
 export default SocialButtons;

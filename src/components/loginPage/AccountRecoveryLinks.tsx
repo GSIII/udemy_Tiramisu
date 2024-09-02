@@ -6,7 +6,7 @@ import ROUTE_PATH from '@/constants/route';
 
 function AccountRecoveryLinks() {
   return (
-    <div className="flex justify-center gap-3 py-16">
+    <div className="mt-16 flex justify-center gap-3">
       <Link
         href={ROUTE_PATH.AUTH.SIGN_UP}
         className="text-xs font-medium text-gray-purple"
