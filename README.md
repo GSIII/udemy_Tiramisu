@@ -1,48 +1,39 @@
-<h1 align="center">✨밋티 - 타라미수케익✨</h1>
+<h1>✨밋티 - 타라미수케익✨</h1>
 
-<p align="center">지식을 나누며 함께하는 IT 스터디
+<p>지식을 나누며 함께하는 IT 스터디
 IT 꿈나무들의 협업 공간</p>
 
 ## 프로젝트 소개
-
 지식을 나누고 체계적인 스터디로 함께 성장하고 지속적인 네트워크로 협업하는 공간입니다.
 
 
 ## 주요 기능
 
-### 🔑 로그인/회원가입/소셜로그인
-
-### 📝 스터디룸 과제 인증
-
-### 🔖 스터디 스크랩
-
-### 👭🏻 친구 추가 기능
-
-### ✏️ 스터디 CRUD
-
-### ⚙️ 회원정보 수정
-
+#### 🔑 로그인/회원가입/소셜로그인
+![온보딩](https://github.com/user-attachments/assets/b4a1572f-199c-47b7-a5fd-06b7335d2209) 
 ### 👤 공개프로필
+![공개프로필](https://github.com/user-attachments/assets/9c2130d8-ba71-4159-ad0f-36eb9b8fe38e)
 
-### 🔍 스터디원 검색/추가
 
-### 💬 스터디룸 채팅
+### 📝 스터디
+![스터디 생성](https://github.com/user-attachments/assets/28c5e7a4-37ca-430b-b4e5-a9a98904b3ec)
 
-### ⭐ 뱃지 기능
+### 🔍 검색
+![검색페이지](https://github.com/user-attachments/assets/cb74839b-8856-46dc-afa8-714afd7b2e38)
 
-### 🗓️ 일정 관리
+### 📝 스터디룸
+![일정 추가](https://github.com/user-attachments/assets/577f0fd7-ebed-4da9-a506-f459e5fb8512)
+![과제 인증](https://github.com/user-attachments/assets/72d38943-7275-47b6-ac24-a34dd5fe6ae2)
+![채팅3](https://github.com/user-attachments/assets/49f0f8b4-4fcd-44c3-a219-cb3f5d75ebda)
 
-### 📝 스터디룸 과제 CRUD
 
 ### 👤 마이페이지
-
+![마이페이지](https://github.com/user-attachments/assets/baa762d3-64f2-48a1-a23f-cc2ec17bf9e7)
 
 
 ## 사용 기술 스택
 
 <img width="911" alt="image" src="https://github.com/user-attachments/assets/1cb808ed-6771-4ce8-8781-cd8c4541b385">
-
-
 
 
 ## ppt 소개
